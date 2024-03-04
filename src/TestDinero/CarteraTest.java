@@ -10,6 +10,8 @@ public class CarteraTest {
         assertEquals(0, c.getSaldo());
     }
 
+    //Tests para probar el método ingresar
+
     @Test
     void testAlIngresar100EnCuentaVaciaElSaldoEs100(){
         Cuenta c = new Cuenta();
@@ -63,6 +65,77 @@ public class CarteraTest {
         assertEquals(0, c.getSaldo());
     }
 
+    //Tests para probar el método retirar
+
+    @Test
+    void testAlRetirar100DeUnaCuentaCon500ElSaldoEs400(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(500);
+        //Act
+        c.retirar(100);
+        //Assert
+        assertEquals(400, c.getSaldo());
+    }
+
+    @Test
+    void testAlRetirar500DeUnaCuentaCon200NoSeRetira(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(200);
+        //Act
+        c.retirar(500);
+        //Assert
+        assertEquals(200, c.getSaldo());
+    }
+
+    @Test
+    void testAlRetirarMenos100NoSeRetira(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(500);
+        //Act
+        c.retirar(-100);
+        //Assert
+        assertEquals(500, c.getSaldo());
+    }
+
+    @Test
+    void testAlRetirarDecimalesRestan(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(500);
+        //Act
+        c.retirar(100.45);
+        //Assert
+        assertEquals(399.55, c.getSaldo());
+    }
+
+    @Test
+    void testAlRetirar6000DeUnaCuentaCon7000ElSaldoEs1000(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(5000);
+        c.ingresar(2000);
+        //Act
+        c.retirar(6000);
+        //Assert
+        assertEquals(1000, c.getSaldo());
+    }
+
+    @Test
+    void testAlRetirar6000y1CentDeUnaCuentaCon7000ElSaldoNoCambia(){
+        //Arrange
+        Cuenta c = new Cuenta();
+        c.ingresar(5000);
+        c.ingresar(2000);
+        //Act
+        c.retirar(6000.01);
+        //Assert
+        assertEquals(7000, c.getSaldo());
+    }
+
+    //Tests para probar el metodo transferir
     @Test
     void testAlTransferir100DeUnaCuentaCon500AUnaCon50SeRestaYSumaRespectivamente(){
         //Arrange
